@@ -2,12 +2,12 @@ import React, { useState,useEffect } from 'react'
 import './App.css'
 import sunny from './asset/sunBGRemove.png'
 import rain from './asset/rain.png'
-import could from './asset/couldyBG.png'
+import cloud from './asset/couldyBG.png'
 import snow from './asset/snowBG.png'
 const App = () => {
   const [data,setData] = useState()
   const [searchData, setSearchData] = useState()
- 
+  const weather = data && data.weather[0].main
 //use effect to fecth api
 //step 2 store data from api in state line 12 setData
 //step 3 search box to show data in console -mainBox
@@ -20,6 +20,8 @@ const searchCityFunc =()=>{
       console.log(data)
     })
 }
+
+
   return (
     <div className='mainBox'>
       <div className='topBox'>
@@ -44,7 +46,13 @@ const searchCityFunc =()=>{
     <p>Maximum:{parseInt(data.main.temp_max)}</p>
     <p>Minumum:{data.main.temp_min}</p>
     <p>Weather:{data.weather[0].main}</p>
-    <img src={sunny} alt="Image not working"/>
+    <div>
+       <img src={
+          weather == "Clear"?sunny:
+          weather == "Clouds"?cloud:
+          weather == "Rain"?rain:snow
+        }/>
+    </div>
   </div>
 }
     </div>
